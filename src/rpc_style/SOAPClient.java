@@ -1,4 +1,4 @@
-package project3task1client2;
+package rpc_style;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -15,7 +15,7 @@ import javax.xml.bind.DatatypeConverter;
  * 
  * @author jinyili
  */
-public class Project3Task1Client {
+public class SOAPClient {
     
     /*
      * RSA components for private and public keys. 
