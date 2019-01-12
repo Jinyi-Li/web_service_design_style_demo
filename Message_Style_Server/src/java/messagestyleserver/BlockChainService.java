@@ -1,4 +1,4 @@
-package project3task2server;
+package messagestyleserver;
 
 import java.io.StringReader;
 import java.math.BigInteger;

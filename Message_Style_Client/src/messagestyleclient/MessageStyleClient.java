@@ -1,4 +1,4 @@
-package project3task2client;
+package messagestyleclient;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -15,7 +15,7 @@ import javax.xml.bind.DatatypeConverter;
  * 
  * @author jinyili
  */
-public class Project3Task2Client {
+public class MessageStyleClient {
         
     /*
      * RSA components for private and public keys. 
@@ -60,7 +60,7 @@ public class Project3Task2Client {
             byte[] digestedMsg = digester.digest();
             return DatatypeConverter.printHexBinary(digestedMsg);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Project3Task2Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MessageStyleClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -80,7 +80,7 @@ public class Project3Task2Client {
             BigInteger crypo = encryptWithPrivKey(clear);                   
             return crypo.toString();
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Project3Task2Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MessageStyleClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -151,9 +151,9 @@ public class Project3Task2Client {
      * @param args
      */
     public static void main(String[] args) {
-        project3task2server.BlockChainService_Service service = 
-                new project3task2server.BlockChainService_Service();
-        project3task2server.BlockChainService port = 
+        messagestyleserver.BlockChainService_Service service = 
+                new messagestyleserver.BlockChainService_Service();
+        messagestyleserver.BlockChainService port = 
                 service.getBlockChainServicePort();
        
         Scanner scanner = new Scanner(System.in);
@@ -175,9 +175,9 @@ public class Project3Task2Client {
      * @return 
      */
     private static String request(java.lang.String message) {
-        project3task2server.BlockChainService_Service service = 
-                new project3task2server.BlockChainService_Service();
-        project3task2server.BlockChainService port = 
+        messagestyleserver.BlockChainService_Service service = 
+                new messagestyleserver.BlockChainService_Service();
+        messagestyleserver.BlockChainService port = 
                 service.getBlockChainServicePort();
         return port.request(message);
     }   
