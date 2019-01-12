@@ -1,4 +1,4 @@
-package project3task3client;
+package resourcestyleclient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import javax.xml.bind.DatatypeConverter;
  * 
  * @author jinyili
  */
-public class Project3Task3Client {
+public class ResourceStyleClient {
     
     /*
      * RSA components for private and public keys. 
@@ -57,7 +57,7 @@ public class Project3Task3Client {
             byte[] digestedMsg = digester.digest();
             return DatatypeConverter.printHexBinary(digestedMsg);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Project3Task3Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResourceStyleClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -77,7 +77,7 @@ public class Project3Task3Client {
             BigInteger crypo = encryptWithPrivKey(clear);                   
             return crypo.toString();
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Project3Task3Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResourceStyleClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -108,7 +108,7 @@ public class Project3Task3Client {
      * @return 
      */    
     private static String request(String option, String message){
-        String base = "http://localhost:8080/Project3Task3Server/BlockChainService/";        
+        String base = "http://localhost:8080/ResourceStyleServer/BlockChainService/";        
         HttpURLConnection connection = null;            
         try {            
             URL url = new URL(base + option);

@@ -1,4 +1,4 @@
-package project3task3;
+package resourcestyleserver;
 
 import java.io.IOException;
 import java.io.PrintWriter;
