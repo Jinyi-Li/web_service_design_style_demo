@@ -22,86 +22,6 @@ import javax.xml.bind.DatatypeConverter;
  */
 public class ResourceStyleClient {
     
-    /*
-     * RSA components for private and public keys. 
-     */
-    private static final BigInteger e = new BigInteger("65537");
-    private static final BigInteger d = new BigInteger("339177647280468990599683753475404338964037287357290649"
-            + "639740920420195763493261892674937712727426153831055473238029100"
-            + "340967145378283022484846784794546119352371446685199413453480215"
-            + "164979267671668216248690393620864946715883011485526549108913");
-    private static final BigInteger n = new BigInteger("268852025517901502623747873143657162103121815451557296"
-            + "872758837706559866377091251333301800665424865065625091311087483"
-            + "660777796686710629019261833666084998095639973296736997628150027"
-            + "0286450313199586861977623503348237855579434471251977653662553");
-    
-    /*
-     * Encrypt request content with client's RSA private key.
-     * @param clear
-     * @return 
-     */
-    private static BigInteger encryptWithPrivKey(BigInteger clear){
-        return clear.modPow(d, n);
-    }    
-    
-    /*
-     * Helper method. calculete hash value of a given message string.
-     * @param message
-     * @return
-     * @throws NoSuchAlgorithmException
-     */
-    private static String calculateHash(String message) {
-        try {
-            MessageDigest digester = MessageDigest.getInstance("SHA-256");
-            digester.update(message.getBytes());
-            byte[] digestedMsg = digester.digest();
-            return DatatypeConverter.printHexBinary(digestedMsg);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(ResourceStyleClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    /*
-     * Encrypt message with SHA-256 and sign it with client's private key. 
-     * @param message
-     * @return 
-     */
-    private static String encryptMessage(String message){
-        try {
-            // get hash value
-            String hashInHex = calculateHash(message);                      
-            byte[] hashInBin = hashInHex.getBytes("UTF-8");
-            // get signed value
-            BigInteger clear = new BigInteger(hashInBin);
-            BigInteger crypo = encryptWithPrivKey(clear);                   
-            return crypo.toString();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(ResourceStyleClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    /**
-     * the current system time.
-     * @return
-     */
-    private static Timestamp getTime(){
-        return new Timestamp(System.currentTimeMillis());
-    }
-
-    /*
-     * Display main menu.
-     */
-    private static void displayMenu(){
-        String menu =                
-                "1. Add a transaction to the blockchain.\n" +
-                "2. Verify the blockchain.\n" +
-                "3. View the blockchain.\n" +                
-                "4. Exit\n";
-        System.out.print(menu);
-    }
-    
     /**
      * Establish connection with server to send request and retrieve response.
      * @param url
@@ -143,8 +63,7 @@ public class ResourceStyleClient {
      * @return
      * @throws NoSuchAlgorithmException
      */
-    private static int dispatchOptions( String option, Scanner scanner) {        
-
+    private static int dispatchOptions( String option, Scanner scanner) {
         Timestamp start, end;
         String query;            
 
@@ -160,8 +79,6 @@ public class ResourceStyleClient {
                 String message = payload + "#" + encryptMessage(payload);                                
                 request("addBlock", message);
                 end = getTime();
-                System.out.println("Total execution time to add this block " +
-                        "was "+ (end.getTime() - start.getTime()) +" milliseconds");
                 break;
             case "2":                    
                 start = getTime();
@@ -169,9 +86,7 @@ public class ResourceStyleClient {
                 end = getTime();
                 System.out.println(
                         "Verifying entire chain\n" +
-                        "Chain verification: " + isValid + "\n" +
-                        "Total execution time required to verify the chain " +
-                        "was " + (end.getTime() - start.getTime()) + " milliseconds");
+                        "Chain verification: " + isValid);
                 break;
             case "3":                                        
                 System.out.println("View the Blockchain\n" +
